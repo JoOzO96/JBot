@@ -24,6 +24,7 @@ import funcoes.Uteis;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.InputEvent;
+import javax.swing.DefaultComboBoxModel;
 
 public class Principal {
 	private static Robot robot;
@@ -71,6 +72,7 @@ public class Principal {
 					cb_tipominerio.addItem("Ferro");
 					cb_tipominerio.addItem("Aço");
 					cb_tipominerio.addItem("Ouro");
+					cb_tipominerio.addItem("Mithril");
 					tx_total.setText(String.valueOf(0));
 
 					// uteis.SetDefault();
@@ -137,6 +139,7 @@ public class Principal {
 		frame.getContentPane().add(cb_tipotreino);
 
 		cb_tipominerio = new JComboBox();
+		cb_tipominerio.setModel(new DefaultComboBoxModel(new String[] {"Bronze", "Ferro", "A\u00E7o", "Ouro", "Mithril"}));
 		cb_tipominerio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				tipominerio = cb_tipominerio.getSelectedItem().toString();
@@ -212,17 +215,16 @@ public class Principal {
 				robot.delay(13800);
 				total = total + 5;
 			} else if (tipominerio.equals("Aço")) {
-				robot.delay(21500);
+				robot.delay(22200);
 				total = total + 9;
 			}
 
 			if (total >= totalMinerio) {
 				segue = false;
 			}
-			long tempo = ThreadLocalRandom.current().nextInt(1300, 3600);
-			if ((System.currentTimeMillis() - dataInicio.getTime()) >= tempo) {
-				long tempoPausa = ThreadLocalRandom.current().nextInt(900, 1200);
-				
+			long tempo = ThreadLocalRandom.current().nextInt(25000, 36000);
+			if ((System.currentTimeMillis() - dataInicio.getTime()) <= tempo) {
+				long tempoPausa = ThreadLocalRandom.current().nextInt(9000, 12000);
 				
 				try {
 					Thread.sleep(tempoPausa);
@@ -266,7 +268,7 @@ public class Principal {
 		robot.delay(200);
 		robot.mouseRelease(MouseEvent.BUTTON1_MASK);
 		robot.keyPress(KeyEvent.VK_UP);
-		robot.delay(500);
+		robot.delay(1000);
 		robot.keyRelease(KeyEvent.VK_UP);
 		
 		
