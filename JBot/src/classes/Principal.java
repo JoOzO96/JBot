@@ -1,5 +1,6 @@
 package classes;
 
+import java.awt.AWTException;
 import java.awt.EventQueue;
 import java.awt.Rectangle;
 import java.awt.Robot;
@@ -9,7 +10,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.net.URL;
+import java.nio.Buffer;
 import java.util.Date;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
@@ -21,9 +25,13 @@ import javax.swing.JTextField;
 import javax.swing.plaf.SliderUI;
 
 import funcoes.Uteis;
+import image.CarregaImagem;
+
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.InputEvent;
+
+import javax.imageio.ImageIO;
 import javax.swing.DefaultComboBoxModel;
 
 public class Principal {
@@ -106,8 +114,13 @@ public class Principal {
 					@Override
 					public void run() {
 						// TODO Auto-generated method stub
-						clicanatela(robot, tipotreino, tipominerio, totalMinerio);
-						// Login(robot);
+//						clicanatela(robot, tipotreino, tipominerio, totalMinerio);
+//						verificaImagemIgual();
+						 Login(robot);
+//						Toolkit toolkit = Toolkit.getDefaultToolkit();
+//						int widthTela = (int) toolkit.getScreenSize().getWidth();
+//						int heightTela = (int) toolkit.getScreenSize().getHeight();
+//						System.out.println(widthTela + "-" + heightTela);
 					}
 				};
 				thread.start();
@@ -191,7 +204,7 @@ public class Principal {
 		Date dataInicio = new Date();
 		int widthTela = (int) toolkit.getScreenSize().getWidth();
 		int heightTela = (int) toolkit.getScreenSize().getHeight();
-
+		long tempo = ThreadLocalRandom.current().nextInt(3000000, 3600000);
 		while (segue) {
 
 			int y = 0;
@@ -254,10 +267,10 @@ public class Principal {
 			if (total >= totalMinerio) {
 				segue = false;
 			}
-			long tempo = ThreadLocalRandom.current().nextInt(25000, 36000);
-			if ((System.currentTimeMillis() - dataInicio.getTime()) <= tempo) {
-				long tempoPausa = ThreadLocalRandom.current().nextInt(9000, 12000);
-
+			
+			if ((System.currentTimeMillis() - dataInicio.getTime()) >= tempo) {
+				long tempoPausa = ThreadLocalRandom.current().nextInt(540000, 900000);
+				System.out.println(System.currentTimeMillis() - dataInicio.getTime() + " menas " + tempo);
 				try {
 					Thread.sleep(tempoPausa);
 				} catch (InterruptedException e) {
@@ -266,12 +279,13 @@ public class Principal {
 				}
 
 				Login(robot);
-
+				tempo = ThreadLocalRandom.current().nextInt(3000000, 3600000);
 			}
 		}
 	}
 
 	private void Login(Robot robot2) {
+		Boolean igual = false;
 		Toolkit toolkit = Toolkit.getDefaultToolkit();
 		int widthTela = (int) toolkit.getScreenSize().getWidth();
 		int heightTela = (int) toolkit.getScreenSize().getHeight();
@@ -280,6 +294,7 @@ public class Principal {
 		if (widthTela == 1366 && heightTela == 768) {
 			robot.mouseMove(617, 387);
 		} else if (widthTela == 1920 && heightTela == 1080) {
+			igual = verificaImagemIgual("image/Login.png", 879, 542, 163, 23);
 			robot.mouseMove(895, 496);
 		}
 		robot.delay(15);
@@ -301,7 +316,12 @@ public class Principal {
 		if (widthTela == 1366 && heightTela == 768) {
 			robot.mouseMove(ThreadLocalRandom.current().nextInt(609, 757), ThreadLocalRandom.current().nextInt(543, 563));
 		} else if (widthTela == 1920 && heightTela == 1080) {
-			robot.mouseMove(ThreadLocalRandom.current().nextInt(877, 1038), ThreadLocalRandom.current().nextInt(545, 566));
+			
+			igual = verificaImagemIgual("image/Login.png", 879, 542, 163, 23);
+			
+			if (igual){
+				robot.mouseMove(ThreadLocalRandom.current().nextInt(877, 1038), ThreadLocalRandom.current().nextInt(545, 566));
+			}
 		}
 		
 		robot.mousePress(InputEvent.BUTTON1_MASK);
@@ -319,6 +339,48 @@ public class Principal {
 		robot.keyPress(KeyEvent.VK_UP);
 		robot.delay(1000);
 		robot.keyRelease(KeyEvent.VK_UP);
+		//teste no botao login
+		//879,542 - 163 - 23
+		
+		
+	}
+	
+	public Boolean verificaImagemIgual(String caminhoImagemPadrao, int x, int y, int w, int h){
+//	public void verificaImagemIgual(){
+		boolean igual = true;
+		BufferedImage imagemPadrao = null;
+		BufferedImage print = null;
+		Toolkit toolkit = Toolkit.getDefaultToolkit(); 
+		int widthTela = (int) toolkit.getScreenSize().getWidth();
+		int heightTela = (int) toolkit.getScreenSize().getHeight();
+		URL url = CarregaImagem.class.getClassLoader().getResource(caminhoImagemPadrao);
 
+		try {
+			imagemPadrao = ImageIO.read(url);
+			print = new Robot().createScreenCapture(new Rectangle(0, 0, widthTela ,heightTela));
+		} catch (AWTException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		int[] rgbArray = new int[widthTela*heightTela];
+		int[] rgbArrayPrint = new int[h*w];
+		int offset = 0;
+		int scansize = 0;
+		print.getRGB(x, y, w, h, rgbArrayPrint, offset, h);
+		imagemPadrao.getRGB(0, 0, w, h, rgbArray, offset, h);
+		
+		
+		for (int i = 0; i < rgbArray.length; i++) {
+			if (rgbArray[i] != rgbArrayPrint[i]){
+				igual = false;
+				break;
+			}else if (i>50){
+				break;
+			}
+		}
+		return igual;
 	}
 }
