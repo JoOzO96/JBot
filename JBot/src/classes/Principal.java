@@ -50,6 +50,7 @@ public class Principal {
 	public static JTextField tx_total;
 	public static JTextField tx_minerios;
 	public static JTextField tx_tempo;
+	private static JButton bt_verimagem;
 
 	/**
 	 * Launch the application.
@@ -86,6 +87,10 @@ public class Principal {
 					comboBox.addItem("1");
 					comboBox.addItem("2");
 					tx_total.setText(String.valueOf(0));
+					
+					
+					
+
 
 					// uteis.SetDefault();
 
@@ -102,7 +107,7 @@ public class Principal {
 	private void initialize() {
 
 		frame = new JFrame();
-		frame.setBounds(100, 100, 283, 300);
+		frame.setBounds(100, 100, 283, 318);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.setLocationRelativeTo(null);
@@ -194,6 +199,36 @@ public class Principal {
 		});
 		comboBox.setBounds(117, 149, 66, 20);
 		frame.getContentPane().add(comboBox);
+		
+		JButton bt_login = new JButton("Login");
+		bt_login.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Toolkit toolkit = Toolkit.getDefaultToolkit();
+				int widthTela = (int) toolkit.getScreenSize().getWidth();
+				int heightTela = (int) toolkit.getScreenSize().getHeight();
+				saidoJogo(widthTela, heightTela);
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				Login(robot);
+			}
+		});
+		bt_login.setBounds(44, 250, 89, 23);
+		frame.getContentPane().add(bt_login);
+		
+		bt_verimagem = new JButton("Imagem");
+		bt_verimagem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+//				boolean igual = verificaImagemIgual("image/Login.png", 879, 542, 163, 23);
+				boolean igual = verificaImagemIgual("image/Jogar.png", 879, 542, 163, 23);
+				System.out.println(igual);
+			}
+		});
+		bt_verimagem.setBounds(152, 250, 89, 23);
+		frame.getContentPane().add(bt_verimagem);
 
 	}
 
@@ -205,6 +240,14 @@ public class Principal {
 		int widthTela = (int) toolkit.getScreenSize().getWidth();
 		int heightTela = (int) toolkit.getScreenSize().getHeight();
 		long tempo = ThreadLocalRandom.current().nextInt(3000000, 3600000);
+		
+		
+		boolean igual = verificaImagemIgual("image/Login.png", 879, 542, 163, 23);
+		
+		if (igual){
+			Login(robot);
+		}
+		
 		while (segue) {
 
 			int y = 0;
@@ -271,14 +314,14 @@ public class Principal {
 			if ((System.currentTimeMillis() - dataInicio.getTime()) >= tempo) {
 				saidoJogo(widthTela, heightTela);
 				long tempoPausa = ThreadLocalRandom.current().nextInt(540000, 900000);
-				System.out.println(System.currentTimeMillis() - dataInicio.getTime() + " menas " + tempo);
+				System.out.println("Hora parada = " + new Date() + " tempo parado = " + tempoPausa / 1000 / 60);
 				try {
 					Thread.sleep(tempoPausa);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-
+				System.out.println("vai iniciar o login");
 				Login(robot);
 				dataInicio = new Date();
 				tempo = ThreadLocalRandom.current().nextInt(3000000, 3600000);
@@ -313,13 +356,14 @@ public class Principal {
 		robot2.keyPress(KeyEvent.VK_ENTER);
 		robot2.delay(30);
 		robot2.keyRelease(KeyEvent.VK_ENTER);
+		
 		robot.delay(4000);
 		
 		if (widthTela == 1366 && heightTela == 768) {
 			robot.mouseMove(ThreadLocalRandom.current().nextInt(609, 757), ThreadLocalRandom.current().nextInt(543, 563));
 		} else if (widthTela == 1920 && heightTela == 1080) {
 			
-			igual = verificaImagemIgual("image/Login.png", 879, 542, 163, 23);
+			igual = verificaImagemIgual("image/Jogar.png", 879, 542, 163, 23);
 			
 			if (igual){
 				robot.mouseMove(ThreadLocalRandom.current().nextInt(877, 1038), ThreadLocalRandom.current().nextInt(545, 566));
@@ -395,7 +439,7 @@ public class Principal {
 			robot.mousePress(InputEvent.BUTTON1_MASK);
 			robot.delay(200);
 			robot.mouseRelease(MouseEvent.BUTTON1_MASK);
-			robot.delay(600);
+			robot.delay(1600);
 			robot.mouseMove(1091, 624);
 			robot.mousePress(InputEvent.BUTTON1_MASK);
 			robot.delay(200);
