@@ -114,9 +114,9 @@ public class Principal {
 					@Override
 					public void run() {
 						// TODO Auto-generated method stub
-//						clicanatela(robot, tipotreino, tipominerio, totalMinerio);
+						clicanatela(robot, tipotreino, tipominerio, totalMinerio);
 //						verificaImagemIgual();
-						 Login(robot);
+//						 Login(robot);
 //						Toolkit toolkit = Toolkit.getDefaultToolkit();
 //						int widthTela = (int) toolkit.getScreenSize().getWidth();
 //						int heightTela = (int) toolkit.getScreenSize().getHeight();
@@ -269,6 +269,7 @@ public class Principal {
 			}
 			
 			if ((System.currentTimeMillis() - dataInicio.getTime()) >= tempo) {
+				saidoJogo(widthTela, heightTela);
 				long tempoPausa = ThreadLocalRandom.current().nextInt(540000, 900000);
 				System.out.println(System.currentTimeMillis() - dataInicio.getTime() + " menas " + tempo);
 				try {
@@ -279,6 +280,7 @@ public class Principal {
 				}
 
 				Login(robot);
+				dataInicio = new Date();
 				tempo = ThreadLocalRandom.current().nextInt(3000000, 3600000);
 			}
 		}
@@ -382,5 +384,23 @@ public class Principal {
 			}
 		}
 		return igual;
+	}
+	
+	public void saidoJogo(int widthTela, int heightTela){
+		
+		if (widthTela == 1366 && heightTela == 768) {
+//			robot.mouseMove(arg0, arg1);
+		}else if (widthTela == 1920 && heightTela == 1080) {
+			robot.mouseMove(1905, 37);
+			robot.mousePress(InputEvent.BUTTON1_MASK);
+			robot.delay(200);
+			robot.mouseRelease(MouseEvent.BUTTON1_MASK);
+			robot.delay(600);
+			robot.mouseMove(1091, 624);
+			robot.mousePress(InputEvent.BUTTON1_MASK);
+			robot.delay(200);
+			robot.mouseRelease(MouseEvent.BUTTON1_MASK);
+		}
+	
 	}
 }
