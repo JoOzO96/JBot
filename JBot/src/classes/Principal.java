@@ -381,7 +381,7 @@ public class Principal {
 		} else if (widthTela == 1920 && heightTela == 1080) {
 
 			igual = verificaImagemIgual("image/Jogar.png", 602, 542, 163, 23);
-
+			igual = true;
 			if (igual) {
 				robot.mouseMove(ThreadLocalRandom.current().nextInt(877, 1038),
 						ThreadLocalRandom.current().nextInt(545, 566));
@@ -494,10 +494,10 @@ public class Principal {
 		int[] rgbArrayPrint = new int[imagemPadrao.getHeight() * imagemPadrao.getWidth()];
 		imagemPadrao.getRGB(0, 0, imagemPadrao.getWidth(), imagemPadrao.getHeight(), rgbArray, offset,
 				imagemPadrao.getWidth());
-
+		
 		// System.out.println(imagemPadrao.getHeight() + " " + imagemPadrao.getWidth());
-		for (int x = 0; x < print.getWidth(); x++) {
-			for (int y = 0; y < print.getHeight(); y++) {
+		for (int x = 500; x < print.getWidth(); x++) {
+			for (int y = 300; y < print.getHeight(); y++) {
 				try {
 
 					print.getRGB(x, y, imagemPadrao.getWidth(), imagemPadrao.getHeight(), rgbArrayPrint, offset,
