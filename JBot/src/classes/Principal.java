@@ -242,25 +242,25 @@ public class Principal {
 		int heightTela = (int) toolkit.getScreenSize().getHeight();
 		long tempo = ThreadLocalRandom.current().nextInt(3000000, 3600000);
 
-		boolean igual = encontraImagem("image/Login.png");
-
-		if (igual) {
-			Login(robot);
-		}
+//		boolean igual = encontraImagem("image/Login.png");
+//
+//		if (igual) {
+//			Login(robot);
+//		}
 		int y = 0;
 		int x = 0;
-		igual = false;
-		
-		igual = verificaImagemIgual("image/Bau.png", 713, 357, 29, 45);
-		if (igual) {
-			if (widthTela == 1366 && heightTela == 768) {
-				x = ThreadLocalRandom.current().nextInt(1272, 1320);
-				y = ThreadLocalRandom.current().nextInt(379, 445);
-			} else if (widthTela == 1920 && heightTela == 1080) {
-				x = ThreadLocalRandom.current().nextInt(1558, 1745);
-				y = ThreadLocalRandom.current().nextInt(528, 607);
-			}
-		}
+//		igual = false;
+//		
+//		igual = verificaImagemIgual("image/Bau.png", 713, 357, 29, 45);
+//		if (igual) {
+//			if (widthTela == 1366 && heightTela == 768) {
+//				x = ThreadLocalRandom.current().nextInt(1272, 1320);
+//				y = ThreadLocalRandom.current().nextInt(379, 445);
+//			} else if (widthTela == 1920 && heightTela == 1080) {
+//				x = ThreadLocalRandom.current().nextInt(1558, 1745);
+//				y = ThreadLocalRandom.current().nextInt(528, 607);
+//			}
+//		}
 
 		while (segue) {
 
