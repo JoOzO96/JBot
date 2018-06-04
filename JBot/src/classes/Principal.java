@@ -1,3 +1,4 @@
+
 package classes;
 
 import java.awt.AWTException;
@@ -14,6 +15,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.Buffer;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
@@ -78,19 +80,15 @@ public class Principal {
 					robot = new Robot();
 					tela = new ClicanaTela();
 					cb_tipominerio.setEnabled(false);
-//					cb_tipotreino.addItem("Metalurgia");
-//					cb_tipominerio.addItem("Bronze");
-//					cb_tipominerio.addItem("Ferro");
-//					cb_tipominerio.addItem("Aço");
-//					cb_tipominerio.addItem("Ouro");
-//					cb_tipominerio.addItem("Mithril");
+					// cb_tipotreino.addItem("Metalurgia");
+					// cb_tipominerio.addItem("Bronze");
+					// cb_tipominerio.addItem("Ferro");
+					// cb_tipominerio.addItem("Aço");
+					// cb_tipominerio.addItem("Ouro");
+					// cb_tipominerio.addItem("Mithril");
 					comboBox.addItem("1");
 					comboBox.addItem("2");
 					tx_total.setText(String.valueOf(0));
-					
-					
-					
-
 
 					// uteis.SetDefault();
 
@@ -120,12 +118,12 @@ public class Principal {
 					public void run() {
 						// TODO Auto-generated method stub
 						clicanatela(robot, tipotreino, tipominerio, totalMinerio);
-//						verificaImagemIgual();
-//						 Login(robot);
-//						Toolkit toolkit = Toolkit.getDefaultToolkit();
-//						int widthTela = (int) toolkit.getScreenSize().getWidth();
-//						int heightTela = (int) toolkit.getScreenSize().getHeight();
-//						System.out.println(widthTela + "-" + heightTela);
+						// verificaImagemIgual();
+						// Login(robot);
+						// Toolkit toolkit = Toolkit.getDefaultToolkit();
+						// int widthTela = (int) toolkit.getScreenSize().getWidth();
+						// int heightTela = (int) toolkit.getScreenSize().getHeight();
+						// System.out.println(widthTela + "-" + heightTela);
 					}
 				};
 				thread.start();
@@ -149,7 +147,7 @@ public class Principal {
 		frame.getContentPane().add(btnNewButton_1);
 
 		cb_tipotreino = new JComboBox();
-		cb_tipotreino.setModel(new DefaultComboBoxModel(new String[] {"Metalurgia"}));
+		cb_tipotreino.setModel(new DefaultComboBoxModel(new String[] { "Metalurgia" }));
 		cb_tipotreino.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				tipotreino = cb_tipotreino.getSelectedItem().toString();
@@ -163,7 +161,7 @@ public class Principal {
 
 		cb_tipominerio = new JComboBox();
 		cb_tipominerio
-				.setModel(new DefaultComboBoxModel(new String[] {"Bronze", "Ferro", "A\u00E7o", "Ouro", "Mithril"}));
+				.setModel(new DefaultComboBoxModel(new String[] { "Bronze", "Ferro", "A\u00E7o", "Ouro", "Mithril" }));
 		cb_tipominerio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				tipominerio = cb_tipominerio.getSelectedItem().toString();
@@ -199,7 +197,7 @@ public class Principal {
 		});
 		comboBox.setBounds(117, 149, 66, 20);
 		frame.getContentPane().add(comboBox);
-		
+
 		JButton bt_login = new JButton("Login");
 		bt_login.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -218,13 +216,16 @@ public class Principal {
 		});
 		bt_login.setBounds(44, 250, 89, 23);
 		frame.getContentPane().add(bt_login);
-		
+
 		bt_verimagem = new JButton("Imagem");
 		bt_verimagem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-//				boolean igual = verificaImagemIgual("image/Login.png", 879, 542, 163, 23);
-				boolean igual = verificaImagemIgual("image/Jogar.png", 879, 542, 163, 23);
-				System.out.println(igual);
+				// boolean igual = verificaImagemIgual("image/Login.png", 879, 542, 163, 23);
+				// boolean igual = verificaImagemIgual("image/Jogar.png", 879, 542, 163, 23);
+//				encontraImagem("image/JogarNot.png");
+//				encontraImagem("image/Jogar.png");
+//				encontraImagem("image/LoginNot.png");
+				// System.out.println(igual);
 			}
 		});
 		bt_verimagem.setBounds(152, 250, 89, 23);
@@ -240,18 +241,30 @@ public class Principal {
 		int widthTela = (int) toolkit.getScreenSize().getWidth();
 		int heightTela = (int) toolkit.getScreenSize().getHeight();
 		long tempo = ThreadLocalRandom.current().nextInt(3000000, 3600000);
-		
-		
-		boolean igual = verificaImagemIgual("image/Login.png", 879, 542, 163, 23);
-		
-		if (igual){
+
+		boolean igual = encontraImagem("image/Login.png");
+
+		if (igual) {
 			Login(robot);
 		}
+		int y = 0;
+		int x = 0;
+		igual = false;
 		
+		igual = verificaImagemIgual("image/Bau.png", 713, 357, 29, 45);
+		if (igual) {
+			if (widthTela == 1366 && heightTela == 768) {
+				x = ThreadLocalRandom.current().nextInt(1272, 1320);
+				y = ThreadLocalRandom.current().nextInt(379, 445);
+			} else if (widthTela == 1920 && heightTela == 1080) {
+				x = ThreadLocalRandom.current().nextInt(1558, 1745);
+				y = ThreadLocalRandom.current().nextInt(528, 607);
+			}
+		}
+
 		while (segue) {
 
-			int y = 0;
-			int x = 0;
+			
 			// SetDefault(robot, tipominerio);
 			Random random = new Random();
 			if (widthTela == 1366 && heightTela == 768) {
@@ -310,7 +323,7 @@ public class Principal {
 			if (total >= totalMinerio) {
 				segue = false;
 			}
-			
+
 			if ((System.currentTimeMillis() - dataInicio.getTime()) >= tempo) {
 				saidoJogo(widthTela, heightTela);
 				long tempoPausa = ThreadLocalRandom.current().nextInt(540000, 900000);
@@ -337,7 +350,10 @@ public class Principal {
 		String senha = "jose2alcides";
 		char[] charSenha = senha.toCharArray();
 		if (widthTela == 1366 && heightTela == 768) {
-			robot.mouseMove(617, 387);
+			igual = verificaImagemIgual("image/Login.png", 596, 427, 163, 23);
+			if (igual) {
+				robot.mouseMove(617, 387);
+			}
 		} else if (widthTela == 1920 && heightTela == 1080) {
 			igual = verificaImagemIgual("image/Login.png", 879, 542, 163, 23);
 			robot.mouseMove(895, 496);
@@ -356,28 +372,32 @@ public class Principal {
 		robot2.keyPress(KeyEvent.VK_ENTER);
 		robot2.delay(30);
 		robot2.keyRelease(KeyEvent.VK_ENTER);
-		
+
 		robot.delay(4000);
-		
+
 		if (widthTela == 1366 && heightTela == 768) {
-			robot.mouseMove(ThreadLocalRandom.current().nextInt(609, 757), ThreadLocalRandom.current().nextInt(543, 563));
+			robot.mouseMove(ThreadLocalRandom.current().nextInt(609, 757),
+					ThreadLocalRandom.current().nextInt(543, 563));
 		} else if (widthTela == 1920 && heightTela == 1080) {
-			
-			igual = verificaImagemIgual("image/Jogar.png", 879, 542, 163, 23);
-			
-			if (igual){
-				robot.mouseMove(ThreadLocalRandom.current().nextInt(877, 1038), ThreadLocalRandom.current().nextInt(545, 566));
+
+			igual = verificaImagemIgual("image/Jogar.png", 602, 542, 163, 23);
+
+			if (igual) {
+				robot.mouseMove(ThreadLocalRandom.current().nextInt(877, 1038),
+						ThreadLocalRandom.current().nextInt(545, 566));
 			}
 		}
-		
+
 		robot.mousePress(InputEvent.BUTTON1_MASK);
 		robot.delay(200);
 		robot.mouseRelease(MouseEvent.BUTTON1_MASK);
-		robot.delay(10000);
+		robot.delay(20000);
 		if (widthTela == 1366 && heightTela == 768) {
-			robot.mouseMove(ThreadLocalRandom.current().nextInt(1173, 1187), ThreadLocalRandom.current().nextInt(67, 85));
+			robot.mouseMove(ThreadLocalRandom.current().nextInt(1173, 1187),
+					ThreadLocalRandom.current().nextInt(67, 85));
 		} else if (widthTela == 1920 && heightTela == 1080) {
-			robot.mouseMove(ThreadLocalRandom.current().nextInt(1727, 1743), ThreadLocalRandom.current().nextInt(69, 87));
+			robot.mouseMove(ThreadLocalRandom.current().nextInt(1727, 1743),
+					ThreadLocalRandom.current().nextInt(69, 87));
 		}
 		robot.mousePress(InputEvent.BUTTON1_MASK);
 		robot.delay(200);
@@ -385,25 +405,25 @@ public class Principal {
 		robot.keyPress(KeyEvent.VK_UP);
 		robot.delay(1000);
 		robot.keyRelease(KeyEvent.VK_UP);
-		//teste no botao login
-		//879,542 - 163 - 23
-		
-		
+		robot.delay(15000);
+		// teste no botao login
+		// 879,542 - 163 - 23
+
 	}
-	
-	public Boolean verificaImagemIgual(String caminhoImagemPadrao, int x, int y, int w, int h){
-//	public void verificaImagemIgual(){
-		boolean igual = true;
+
+	public Boolean verificaImagemIgual(String caminhoImagemPadrao, int x, int y, int w, int h) {
+		// public void verificaImagemIgual(){
+		boolean igual = false;
 		BufferedImage imagemPadrao = null;
 		BufferedImage print = null;
-		Toolkit toolkit = Toolkit.getDefaultToolkit(); 
+		Toolkit toolkit = Toolkit.getDefaultToolkit();
 		int widthTela = (int) toolkit.getScreenSize().getWidth();
 		int heightTela = (int) toolkit.getScreenSize().getHeight();
 		URL url = CarregaImagem.class.getClassLoader().getResource(caminhoImagemPadrao);
 
 		try {
 			imagemPadrao = ImageIO.read(url);
-			print = new Robot().createScreenCapture(new Rectangle(0, 0, widthTela ,heightTela));
+			print = new Robot().createScreenCapture(new Rectangle(0, 0, widthTela, heightTela));
 		} catch (AWTException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -411,30 +431,32 @@ public class Principal {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		int[] rgbArray = new int[widthTela*heightTela];
-		int[] rgbArrayPrint = new int[h*w];
+		int[] rgbArray = new int[widthTela * heightTela];
+		int[] rgbArrayPrint = new int[widthTela * heightTela];
 		int offset = 0;
 		int scansize = 0;
 		print.getRGB(x, y, w, h, rgbArrayPrint, offset, h);
 		imagemPadrao.getRGB(0, 0, w, h, rgbArray, offset, h);
-		
-		
-		for (int i = 0; i < rgbArray.length; i++) {
-			if (rgbArray[i] != rgbArrayPrint[i]){
-				igual = false;
-				break;
-			}else if (i>50){
-				break;
-			}
+
+		if (Arrays.equals(rgbArray, rgbArrayPrint)) {
+			igual = true;
 		}
 		return igual;
 	}
-	
-	public void saidoJogo(int widthTela, int heightTela){
-		
+
+	public void saidoJogo(int widthTela, int heightTela) {
+
 		if (widthTela == 1366 && heightTela == 768) {
-//			robot.mouseMove(arg0, arg1);
-		}else if (widthTela == 1920 && heightTela == 1080) {
+			robot.mouseMove(1351, 37);
+			robot.mousePress(InputEvent.BUTTON1_MASK);
+			robot.delay(200);
+			robot.mouseRelease(MouseEvent.BUTTON1_MASK);
+			robot.delay(1600);
+			robot.mouseMove(799, 467);
+			robot.mousePress(InputEvent.BUTTON1_MASK);
+			robot.delay(200);
+			robot.mouseRelease(MouseEvent.BUTTON1_MASK);
+		} else if (widthTela == 1920 && heightTela == 1080) {
 			robot.mouseMove(1905, 37);
 			robot.mousePress(InputEvent.BUTTON1_MASK);
 			robot.delay(200);
@@ -445,6 +467,59 @@ public class Principal {
 			robot.delay(200);
 			robot.mouseRelease(MouseEvent.BUTTON1_MASK);
 		}
-	
+
+	}
+
+	public boolean encontraImagem(String caminhoImagemPadrao) {
+		BufferedImage imagemPadrao = null;
+		BufferedImage print = null;
+		Boolean retorno = false;
+		Toolkit toolkit = Toolkit.getDefaultToolkit();
+		int widthTela = (int) toolkit.getScreenSize().getWidth();
+		int heightTela = (int) toolkit.getScreenSize().getHeight();
+		URL url = CarregaImagem.class.getClassLoader().getResource(caminhoImagemPadrao);
+		boolean termina = false;
+		try {
+			imagemPadrao = ImageIO.read(url);
+//			url = CarregaImagem.class.getClassLoader().getResource("image/LoginNot.png");
+//			print = ImageIO.read(url);
+			print = robot.createScreenCapture(new Rectangle(0, 0, widthTela, heightTela));
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		int offset = 0;
+		int[] rgbArray = new int[imagemPadrao.getHeight() * imagemPadrao.getWidth()];
+		int[] rgbArrayPrint = new int[imagemPadrao.getHeight() * imagemPadrao.getWidth()];
+		imagemPadrao.getRGB(0, 0, imagemPadrao.getWidth(), imagemPadrao.getHeight(), rgbArray, offset,
+				imagemPadrao.getWidth());
+
+		// System.out.println(imagemPadrao.getHeight() + " " + imagemPadrao.getWidth());
+		for (int x = 0; x < print.getWidth(); x++) {
+			for (int y = 0; y < print.getHeight(); y++) {
+				try {
+
+					print.getRGB(x, y, imagemPadrao.getWidth(), imagemPadrao.getHeight(), rgbArrayPrint, offset,
+							imagemPadrao.getWidth());
+
+					if (Arrays.equals(rgbArray, rgbArrayPrint)) {
+						System.out.println(x + " " + y);
+						termina = true;
+						return  true;
+					}
+					
+				} catch (Exception e) {
+					break;
+				}
+				if (termina) {
+					break;
+				}
+			}
+			if (termina) {
+				break;
+			}
+		}
+		return false;
 	}
 }

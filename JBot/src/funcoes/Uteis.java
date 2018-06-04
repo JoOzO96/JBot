@@ -15,9 +15,9 @@ public class Uteis {
 
 	public void click(Robot robot, int x, int y){
 		robot.mouseMove(x, y);
-		robot.delay(15);
+		robot.delay(100);
 		robot.mousePress(InputEvent.BUTTON1_MASK);
-		robot.delay(200);
+		robot.delay(500);
 		robot.mouseRelease(MouseEvent.BUTTON1_MASK);
 	}
 	
